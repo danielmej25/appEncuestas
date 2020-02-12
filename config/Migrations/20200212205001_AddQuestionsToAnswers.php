@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class CreateAnswers extends AbstractMigration
+class AddQuestionsToAnswers extends AbstractMigration
 {
     /**
      * Change Method.
@@ -12,17 +12,13 @@ class CreateAnswers extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('answers',['id'=>false, "primary_key"=>'id_answer']);
-        $table->addColumn('id_answer', 'integer', [
+        $table = $this->table('answers');
+        $table->addColumn('id_question', 'integer', [
             'default' => null,
             'limit' => 11,
             'null' => false,
         ]);
-        $table->addColumn('value', 'integer', [
-            'default' => null,
-            'limit' => 11,
-            'null' => false,
-        ]);
-        $table->create();
+        $table->addForeignKey("id_question","questions","id_question",["delete"=>"CASCADE","update"=>"CASCADE"]);
+        $table->update();
     }
 }

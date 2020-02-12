@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class CreateUsersTest extends AbstractMigration
+class CreateUserTests extends AbstractMigration
 {
     /**
      * Change Method.
@@ -12,8 +12,8 @@ class CreateUsersTest extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('users_test');
-        $table->addColumn('id_users_tests', 'integer', [
+        $table = $this->table('user_tests',['id'=>false, "primary_key"=>'id_user_test']);
+        $table->addColumn('id_user_test', 'integer', [
             'default' => null,
             'limit' => 11,
             'null' => false,

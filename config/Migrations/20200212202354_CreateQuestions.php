@@ -12,8 +12,8 @@ class CreateQuestions extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('questions',['id'=>'false', "primary_key"=>'id_questions']);
-        $table->addColumn('id_questions', 'integer', [
+        $table = $this->table('questions',['id'=>false, "primary_key"=>'id_question']);
+        $table->addColumn('id_question', 'integer', [
             'default' => null,
             'limit' => 11,
             'null' => false,

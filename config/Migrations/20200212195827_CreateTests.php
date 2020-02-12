@@ -12,7 +12,7 @@ class CreateTests extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('tests',['id'=>'false', "primary_key"=>'id_test']);
+        $table = $this->table('tests',['id'=>false, "primary_key"=>'id_test']);
         $table->addColumn('id_test', 'integer', [
             'default' => null,
             'limit' => 11,

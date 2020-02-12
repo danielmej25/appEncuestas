@@ -12,13 +12,13 @@ class CreateUsers extends AbstractMigration
      */
     public function change()
     {
-        $table = $this->table('users',['id'=>'false', "primary_key"=>'username']);
+        $table = $this->table('users',['id'=>false, "primary_key"=>'username']);
         $table->addColumn('username', 'string', [
             'default' => null,
             'limit' => 255,
             'null' => false,
         ]);
-        $table->addColumn('pasword', 'string', [
+        $table->addColumn('password', 'string', [
             'default' => null,
             'limit' => 50,
             'null' => false,
@@ -38,7 +38,7 @@ class CreateUsers extends AbstractMigration
             'limit' => 50,
             'null' => false,
         ]);
-        $table->addColumn('active', 'binary', [
+        $table->addColumn('active', 'boolean', [
             'default' => null,
             'null' => false,
         ]);
