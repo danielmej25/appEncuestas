@@ -20,7 +20,7 @@ class CreateUsers extends AbstractMigration
         ]);
         $table->addColumn('password', 'string', [
             'default' => null,
-            'limit' => 50,
+            'limit' => 255,
             'null' => false,
         ]);
         $table->addColumn('first_name', 'string', [
