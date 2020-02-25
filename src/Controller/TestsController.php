@@ -12,6 +12,7 @@ use App\Controller\AppController;
  */
 class TestsController extends AppController
 {
+
     /**
      * Index method
      *
@@ -25,20 +26,16 @@ class TestsController extends AppController
     }
 
     /**
-     * Funcion que determina las autorizaciones de los usuarios en el Controlador
-     */ 
-    
-    public function isAuthorized($user)
-    {
-        // Admin can access every action
-        if (isset($user['role']) && $user['role'] === 'investigador') {
-            return true;
-        }
-
-        // Default deny
-        return parent::isAuthorized($user);
+     * Index method
+     *
+     * @return \Cake\Http\Response|null
+     */
+    public function agregarcorreos(){
+        $tests = $this->paginate($this->Tests);
+        $this->set(compact('tests'));
+        $this->Auth->allow('actualizarDatos.php');
     }
-    
+
     /**
      * View method
      *
@@ -74,7 +71,6 @@ class TestsController extends AppController
         }
         $this->set(compact('test'));
     }
-
     /**
      * Edit method
      *
@@ -115,7 +111,20 @@ class TestsController extends AppController
         } else {
             $this->Flash->error(__('The test could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Funcion que determina las autorizaciones de los usuarios en el Controlador
+     */ 
+    
+    public function isAuthorized($user)
+    {   
+              
+        if(isset($user['role']) && $user['role'] === 'investigador'){
+                return true;        
+        }
+        // Default deny
+        return parent::isAuthorized($user);
     }
 }

@@ -3,47 +3,50 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Test[]|\Cake\Collection\CollectionInterface $tests
  */
+
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Test'), ['action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="tests index large-9 medium-8 columns content">
-    <h3><?= __('Tests') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id_test') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name_test') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('description_test') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($tests as $test): ?>
-            <tr>
-                <td><?= $this->Number->format($test->id_test) ?></td>
-                <td><?= h($test->name_test) ?></td>
-                <td><?= h($test->description_test) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $test->id_test]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $test->id_test]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $test->id_test], ['confirm' => __('Are you sure you want to delete # {0}?', $test->id_test)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
-    </div>
+
+<head>
+<?php echo $this->Html->css('circulos');?>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<meta charset="utf-8">
+</head>
+
+
+<?php 
+$max= count($tests);
+$arrayTests=array();
+$i=0;
+foreach ($tests as $test) {
+    $arrayTests[$i] = $test;
+    $i=$i+1;
+}
+$mitad= (int) (count($tests)/2);
+?>
+
+
+<div class="contenedor">
+    <?php for ($i=0; $i < $mitad; $i++): ?>
+        <div class="card animacion mb-3" style="max-width: 20rem; margin-top:2rem">
+        <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?= h($arrayTests[$i]->name_test)  ?></font></font></div>
+        
+            <div class="card-body text-black ">
+                <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descripcion</font></font></h4>
+                <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?= h($arrayTests[$i]->description_test) ?></font></font></p>
+            </div>
+        
+        </div>
+    <?php endfor; ?>
+
+    <?php for ($i=$mitad; $i < $max; $i++): ?>
+        <div class="card animacion text-black  mb-3" style="max-width: 20rem;">
+        <div class="card-header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?= h($arrayTests[$i]->name_test)  ?></font></font></div>
+        
+            <div class="card-body">
+                <h4 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descripcion</font></font></h4>
+                <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"><?= h($arrayTests[$i]->description_test) ?></font></font></p>
+            </div>
+        </div>
+    <?php endfor; ?>
+    
 </div>

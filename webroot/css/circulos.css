@@ -1,0 +1,19 @@
+.cajaFlexible{
+     display:flex;
+     align-items: center;
+     margin-right: 2px;
+     row-gap: 2px;
+ }
+
+ .contenedor{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 3px;
+ }
+ .animacion:hover{
+    cursor:pointer;
+    transform: scale(0.9);
+    box-shadow: 0 3px 15px -2px;
+ }
+ 
+ 
