@@ -25,6 +25,18 @@ class UserTestsController extends AppController
     }
 
     /**
+     * Funcion que determina las autorizaciones de los usuarios en el 
+     * Controlador de userTest
+     * 
+     */ 
+    
+    public function isAuthorized($user)
+    {
+        // Default deny
+        return parent::isAuthorized($user);
+    }
+
+    /**
      * View method
      *
      * @param string|null $id User Test id.

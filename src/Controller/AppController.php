@@ -28,6 +28,8 @@ use Cake\Event\Event;
 class AppController extends Controller
 {
 
+
+    
     /**
      * Initialization hook method.
      *
@@ -41,9 +43,9 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $this->loadComponent('RequestHandler', [
+        /*$this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
-        ]);
+        ]);*/
         $this->loadComponent('Flash');
 
         $this->loadComponent('Auth', [
@@ -57,9 +59,24 @@ class AppController extends Controller
                     'fields' => [
                         'username' => 'username',
                         'password' => 'password'
-                    ]
+                    ],
+                    'finder' => 'auth'
                 ]
-            ]]);
+            ],
+            'loginRedirect' => [
+                'controller' => 'Users',
+                'action' => 'home'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'authorize' => ['Controller'], // <- here
+            'redirect' => ["controller" => "users", "action" => "login"],
+                    
+            ]);
+            
+            $this->Auth->allow(['logout']);            
 
         /*
          * Enable the following component for recommended CakePHP security settings.
@@ -68,12 +85,34 @@ class AppController extends Controller
         //$this->loadComponent('Security');
     }
 
-    public function isAuthorized($user)
-    {
-        return true;
-    }
 
     public function beforeFilter(Event $event) {
-        $this->Auth->allow(['index','users','login']);
+        $this->Auth->allow(['login']);
+        //Podemos ahora user current_user en todas nuestras vistas
+        $this->set('current_user',$this->Auth->user());
     }
+
+    /**
+     * Funcion que determina las autorizaciones de los usuarios en el Controlador
+     */ 
+    
+    public function isAuthorized($user)
+    {   
+              
+        if(isset($user['role']) && $user['role'] === 'investigador'){
+            if(in_array($this->request->action,['home','logout'])){
+                return true;
+            }
+        }
+        // Admin can access every action
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+
+        // Default deny
+        return false;
+    }
+
+
 }
+ 

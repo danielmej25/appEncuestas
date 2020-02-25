@@ -25,6 +25,18 @@ class AnswersController extends AppController
     }
 
     /**
+     * Funcion que determina las autorizaciones de los usuarios en el 
+     * Controlador de answers
+     * 
+     */ 
+    
+    public function isAuthorized($user)
+    {
+        // Default deny
+        return parent::isAuthorized($user);
+    }
+
+    /**
      * View method
      *
      * @param string|null $id Answer id.

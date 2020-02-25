@@ -19,7 +19,9 @@
             echo $this->Form->control('password');
             echo $this->Form->control('first_name');
             echo $this->Form->control('last_name');
-            echo $this->Form->control('role');
+            echo $this->Form->control('role', [
+                'options' => ['admin' => 'admin', 'investigador' => 'investigador']
+            ]);
             echo $this->Form->control('active');
         ?>
     </fieldset>

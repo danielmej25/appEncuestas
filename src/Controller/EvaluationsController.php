@@ -12,6 +12,7 @@ use App\Controller\AppController;
  */
 class EvaluationsController extends AppController
 {
+    
     /**
      * Index method
      *
@@ -22,6 +23,18 @@ class EvaluationsController extends AppController
         $evaluations = $this->paginate($this->Evaluations);
 
         $this->set(compact('evaluations'));
+    }
+
+    /**
+     * Funcion que determina las autorizaciones de los usuarios en el 
+     * Controlador de evaluations
+     * 
+     */ 
+    
+    public function isAuthorized($user)
+    {
+        // Default deny
+        return parent::isAuthorized($user);
     }
 
     /**

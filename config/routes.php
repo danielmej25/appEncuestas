@@ -92,6 +92,11 @@ Router::scope('/', function (RouteBuilder $routes) {
 });
 
 $routes->connect('/users/login', ['controller' => 'Users', 'action' => 'login']);
+$routes->connect('/users/add', ['controller' => 'Users', 'action' => 'add']);
+$routes->connect('/users/delete', ['controller' => 'Users', 'action' => 'delete']);
+$routes->connect('/users/edit', ['controller' => 'Users', 'action' => 'edit']);
+$routes->connect('/users/logout', ['controller' => 'Users', 'action' => 'logout']);
+
 
 
 /**

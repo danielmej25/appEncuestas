@@ -25,6 +25,21 @@ class TestsController extends AppController
     }
 
     /**
+     * Funcion que determina las autorizaciones de los usuarios en el Controlador
+     */ 
+    
+    public function isAuthorized($user)
+    {
+        // Admin can access every action
+        if (isset($user['role']) && $user['role'] === 'investigador') {
+            return true;
+        }
+
+        // Default deny
+        return parent::isAuthorized($user);
+    }
+    
+    /**
      * View method
      *
      * @param string|null $id Test id.

@@ -20,6 +20,8 @@ use Cake\Validation\Validator;
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
+
+
 class UsersTable extends Table
 {
     /**
@@ -81,7 +83,14 @@ class UsersTable extends Table
             ->requirePresence('active', 'create')
             ->notEmptyString('active');
 
-        return $validator;
+        return $validator
+            ->notEmpty('username', 'A username is required')
+            ->notEmpty('password', 'A password is required')
+            ->notEmpty('role', 'A role is required')
+            ->add('role', 'inList', [
+                'rule' => ['inList', ['admin', 'investigador']],
+                'message' => 'Please enter a valid role'
+            ]);
     }
 
     /**
@@ -96,5 +105,11 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['username']));
 
         return $rules;
+    }
+
+    public function findAuth(\Cake\ORM\Query $query, array $options){
+        $query
+            ->select(['username','password', 'first_name','last_name','role']);
+        return $query;
     }
 }

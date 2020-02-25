@@ -25,6 +25,18 @@ class UsersController extends AppController
     }
 
     /**
+     * Funcion que determina las autorizaciones de los usuarios en el 
+     * Controlador de users
+     * 
+     */ 
+    
+    public function isAuthorized($user)
+    {
+        // Default deny
+        return parent::isAuthorized($user);
+    }
+
+    /**
      * View method
      *
      * @param string|null $id User id.
@@ -121,7 +133,7 @@ class UsersController extends AppController
             }
         }
     }
-
+    
     public function home()
     {
         $this->render();
