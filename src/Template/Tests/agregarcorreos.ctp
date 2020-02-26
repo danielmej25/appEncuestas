@@ -22,14 +22,18 @@ use Cake\View\Helper;
 <meta charset="utf-8">
 </head>
 <?php
+        
+        $fh = fopen($current_user['username'].".json", 'w') or die("Se produjo un error al crear el archivo");
+        fclose($fh);
         $infoCorreos = file_get_contents($current_user['username'].".json");
         //FormatoJson
         $varCorreo = json_decode($infoCorreos,true);
         //Cedula
         $correos = array();
-
-        foreach ($varCorreo['correos'] as $item) {
-        	array_push($correos,$item['email']);
+        if($varCorreo!=NULL){
+          foreach ($varCorreo['correos'] as $item) {
+            array_push($correos,$item['email']);
+          }
         }
 
 ?>
