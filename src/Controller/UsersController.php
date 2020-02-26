@@ -144,4 +144,33 @@ class UsersController extends AppController
         $this->Flash->success('You are now logged out.');
         return $this->redirect($this->Auth->logout());
     }
+
+    public function signup(){
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $first_name = $_POST['first_name'];
+            $last_name = $_POST['last_name'];
+            $role = $_POST['role'];
+            $active = 1;
+
+            $user->username=$username;
+            $user->password=$password;
+            $user->first_name=$first_name;
+            $user->last_name=$last_name;
+            $user->role=$role;
+            $user->role=$active;
+
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
+
+        $this->home();
+    }
 }
