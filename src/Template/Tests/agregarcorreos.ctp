@@ -4,6 +4,9 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Test $test
  */
+
+
+use Cake\View\Helper;
 ?>
 
 <head>
@@ -18,6 +21,18 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <meta charset="utf-8">
 </head>
+<?php
+        $infoCorreos = file_get_contents($current_user['username'].".json");
+        //FormatoJson
+        $varCorreo = json_decode($infoCorreos,true);
+        //Cedula
+        $correos = array();
+
+        foreach ($varCorreo['correos'] as $item) {
+        	array_push($correos,$item['email']);
+        }
+
+?>
 <script>
 function contarRows(){
         var totalRowCount = 0;
@@ -59,8 +74,7 @@ $(document).ready(function() {
             });
     });
     $("#btnConfirmar").click(function(){
-      window.location.href = "/appEncuestas/UserTests/insertardatabd/?"+'url=amazon.com'+'&max_date='+'20-03-2020'+'&id_test='+1;
-      /*
+      
         $.ajax({
                   type: "GET",
                   url: "<?php echo $this->Url->build(['controller'=>'UserTests','action'=>'insertardatabd']);?>",
@@ -74,7 +88,7 @@ $(document).ready(function() {
                   }
                     
               });
-              */
+              
               
     });
 });
@@ -90,14 +104,12 @@ $(document).ready(function() {
         </tr>
       </thead>
       <tbody>
+      <?php for ($i=0;$i<sizeof($correos);$i++):?>
         <tr class="dato">
-          <th scope="row">1</th>
-          <td>Mark</td>
+          <th scope="row"><?php echo $i+1?></th>
+          <td><?php echo $correos[$i]?></td>
         </tr>
-        <tr class="dato"> 
-        <th scope="row">2</th>
-          <td>Mark</td>
-        </tr> 
+    <?php endfor; ?>
       </tbody>
     </table>
   </div>

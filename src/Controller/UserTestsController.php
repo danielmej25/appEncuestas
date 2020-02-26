@@ -50,9 +50,7 @@ class UserTestsController extends AppController
         	array_push($arrayC,$item['email']);
         }
         
-        
         $UserTests = TableRegistry::get('user_tests');
-        $userTest = $UserTests->newEntity();
         $lista= $UserTests->find();
         $arrayT = array();
         $i=0;
@@ -78,6 +76,24 @@ class UserTestsController extends AppController
             'username '=>$this->Auth->user()['username']
         ])
         ->execute();
+
+        for ($i=0; $i < sizeof($arrayC); $i++) { 
+            $evaluations = TableRegistry::get('evaluations');
+            $query2 = $evaluations->query();
+            $query2->insert(['id_evaluation','email','token','state','age','location','date','id_user_test'])
+            ->values([
+                'id_evaluation'=>$i,
+                'email' => $arrayC[$i],
+                'token' => 'ASjb21434b243hu23h5j',
+                'state' =>false,
+                'age'=>18,
+                'location'=>'Colombia',
+                'date'=> $currentDate,
+                'id_user_test'=>$id
+            ])
+            ->execute();
+
+        }
 
 
 /*

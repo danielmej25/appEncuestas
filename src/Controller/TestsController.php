@@ -5,12 +5,11 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 
-
 /**
  * Tests Controller
  *
  * @property \App\Model\Table\TestsTable $Tests
- *
+ * 
  * @method \App\Model\Entity\Test[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class TestsController extends AppController
