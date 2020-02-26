@@ -24,6 +24,7 @@ class UserTest extends Entity
      * @var array
      */
     protected $_accessible = [
+        'id_user_test'=>true,
         'url_page' => true,
         'max_date' => true,
         'id_test' => true,

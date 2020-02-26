@@ -1,6 +1,6 @@
 <?php
 use Migrations\AbstractSeed;
-
+use Cake\ORM\TableRegistry;
 /**
  * Users seed.
  */
@@ -18,9 +18,24 @@ class UsersSeed extends AbstractSeed
      */
     public function run()
     {
-        $data = [];
+        // variable to store the current time in seconds  
+        $currentTimeinSeconds = time();  
+        
+        // converts the time in seconds to current date  
+        $currentDate = date('Y/m/d', $currentTimeinSeconds); 
+        $UsersTable = TableRegistry::get('users');
+        $user = $UsersTable->newEntity();
 
-        $table = $this->table('users');
-        $table->insert($data)->save();
+        $user->username = 'Will';
+        $user->password = 'admin';
+        $user->first_name = 'admin';
+        $user->last_name = 'admin';
+        $user->role = 'admin';
+        $user->active = true;
+        $user->created = $currentDate;
+        $user->modified= $currentDate;
+        $UsersTable->save($user);
+
+
     }
 }

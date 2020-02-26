@@ -24,5 +24,12 @@ use Cake\Core\Configure;
 //Configure::write('App.fullBaseUrl', php_uname('n'));
 
 // Set logs to different files so they don't have permission conflicts.
-Configure::write('Log.debug.file', 'cli-debug');
-Configure::write('Log.error.file', 'cli-error');
+/*Configure::write('Log.debug.file', 'cli-debug');
+Configure::write('Log.error.file', 'cli-error');*/
+Configure::write('Session', array(
+    'defaults' => 'php',
+    'timeout' => 480, // The session will timeout after 8 hours of inactivity
+    'cookieTimeout' => 480, // The session cookie will live for at most 8 hours, this does not effect session timeouts
+    'checkAgent' => false,
+    'autoRegenerate' => false, // causes the session expiration time to reset on each page load, but also causes 403 errors on ajax requests, therefore disabled
+));

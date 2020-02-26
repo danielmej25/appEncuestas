@@ -34,7 +34,7 @@ function contarRows(){
 $(document).ready(function() {
   $("#btn").click(function(){
     alert("Entra sin problema");
-/*  
+  
     var email=document.getElementById('emailInput').value;
     var URL=document.getElementById('URLInput').value;
     var table =document.getElementById('tablaCorreos');
@@ -45,21 +45,40 @@ $(document).ready(function() {
     var numero = contarRows();
     cell1.innerHTML=""+numero;
     cell2.innerHTML=""+email;
-*/
+      $.ajax({
+                type: "GET",
+                url: "<?php echo $this->Url->build(['controller'=>'Tests','action'=>'Actualizar']);?>",
+                success: function (data, textStatus){
+                    alert('Funciona');
 
-  $.ajax({
-					type: "post",
-					url: "actualizarDatos.php",
-					data:{
-            cedula:"1235"
-					},
-					success: function (response) {
-						alert("Correcto");   
-					}
-		});
-
-  });
+                },
+                data:{
+                  correo:document.getElementById('emailInput').value
+                }
+                  
+            });
+    });
+    $("#btnConfirmar").click(function(){
+      window.location.href = "/appEncuestas/UserTests/insertardatabd/?"+'url=amazon.com'+'&max_date='+'20-03-2020'+'&id_test='+1;
+      /*
+        $.ajax({
+                  type: "GET",
+                  url: "<?php echo $this->Url->build(['controller'=>'UserTests','action'=>'insertardatabd']);?>",
+                  success: function (data, textStatus){
+                      alert('Funciona');
+                  },
+                  data:{
+                    url:document.getElementById('URLInput').value,
+                    max_date: document.getElementById('max_date').value,
+                    id_test: <?php echo $_GET['id_test']?>
+                  }
+                    
+              });
+              */
+              
+    });
 });
+
 </script>
 <div class="contenedor">
   <div class="tablaFlexible">
@@ -76,7 +95,7 @@ $(document).ready(function() {
           <td>Mark</td>
         </tr>
         <tr class="dato"> 
-        <th scope="row">1</th>
+        <th scope="row">2</th>
           <td>Mark</td>
         </tr> 
       </tbody>
@@ -92,8 +111,11 @@ $(document).ready(function() {
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
           <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email">
+          <label for="">Fecha maxima</label>
+          <input type="date" class="form-control" id="max_date" aria-describedby="emailHelp" placeholder="Ingresa fecha maxima">
         </div>
-        <button type="submit" id="btn" class="btn btn-primary">Agregar</button>
+        <button  id="btn" class="btn btn-primary">Agregar</button>
     </div>
   </div>
+  <button  id="btnConfirmar" class="btn btn-primary">Confirmar</button>
 </div>

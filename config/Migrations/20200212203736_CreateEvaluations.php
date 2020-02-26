@@ -15,6 +15,7 @@ class CreateEvaluations extends AbstractMigration
         $table = $this->table('evaluations',['id'=>false, "primary_key"=>'id_evaluation']);
         $table->addColumn('id_evaluation', 'integer', [
             'default' => null,
+            'autoIncrement' => true,
             'limit' => 11,
             'null' => false,
         ]);

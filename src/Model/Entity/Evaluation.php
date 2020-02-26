@@ -28,6 +28,7 @@ class Evaluation extends Entity
      * @var array
      */
     protected $_accessible = [
+        'id_evaluation'=>true,
         'email' => true,
         'token' => true,
         'state' => true,

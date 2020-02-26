@@ -15,6 +15,7 @@ class CreateUserTests extends AbstractMigration
         $table = $this->table('user_tests',['id'=>false, "primary_key"=>'id_user_test']);
         $table->addColumn('id_user_test', 'integer', [
             'default' => null,
+            'autoIncrement' => true,
             'limit' => 11,
             'null' => false,
         ]);

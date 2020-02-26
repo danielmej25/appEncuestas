@@ -2,6 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
+
 
 /**
  * Tests Controller
@@ -21,7 +24,6 @@ class TestsController extends AppController
     public function index()
     {
         $tests = $this->paginate($this->Tests);
-
         $this->set(compact('tests'));
     }
 
@@ -33,9 +35,45 @@ class TestsController extends AppController
     public function agregarcorreos(){
         $tests = $this->paginate($this->Tests);
         $this->set(compact('tests'));
-        $this->Auth->allow('actualizarDatos.php');
-    }
 
+    }
+    public function beforeFilter(Event $event) {
+        parent:: beforeFilter($event);
+        $this->Auth->allow(['actualizar']);
+        $this->Auth->allow(['insertardatabd']);
+
+        
+    }
+    public function actualizar(){
+        
+        $infoCorreos = file_get_contents($this->Auth->user()['username'].".json");
+        //FormatoJson
+        $varCorreo = json_decode($infoCorreos,true);
+        //Cedula
+		//Agregamos las tareas del usuario
+        $i=0;
+        $arrayC = array();
+
+        foreach ($varCorreo['correos'] as $item) {
+        	array_push($arrayC,$item['email']);
+        }
+        array_push($arrayC,$_GET['correo']);
+        $len =sizeof($arrayC);
+        $texto .="{\n\"correos\":[\n";
+        for ($i=0; $i < $len; $i++) { 
+            if($i ==($len-1)){
+                $texto .="	{	\n	\"email\":\"".$arrayC[$i]."\"\n}";	
+            }else{
+                $texto .="	{	\n	\"email\":\"".$arrayC[$i]."\"\n},";	
+            }
+        }
+        $texto .="]\n}";
+        unlink($this->Auth->user()['username'].".json");
+
+		$fh = fopen( $this->Auth->user()['username'].".json", 'w') or die("Se produjo un error al crear el archivo");
+		fwrite($fh, $texto) or die("No se pudo escribir en el archivo");
+		fclose($fh);
+    }
     /**
      * View method
      *
