@@ -104,7 +104,7 @@ class AppController extends Controller
                 return true;
             }
 
-            if(in_array($this->request->action,['signUp'])){
+            if(in_array($this->request->action,['signup'])){
                 return false;
             }
         }

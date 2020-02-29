@@ -23,6 +23,6 @@
             ]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Registrarse')) ?>
     <?= $this->Form->end() ?>
 </div>

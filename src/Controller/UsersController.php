@@ -160,7 +160,7 @@ class UsersController extends AppController
             $user->first_name=$first_name;
             $user->last_name=$last_name;
             $user->role=$role;
-            $user->role=$active;
+            $user->active=$active;
 
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
@@ -170,7 +170,5 @@ class UsersController extends AppController
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
-
-        $this->home();
     }
 }
