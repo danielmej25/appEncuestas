@@ -24,6 +24,8 @@ class UsersController extends AppController
         $this->set(compact('users'));
     }
 
+
+
     /**
      * Funcion que determina las autorizaciones de los usuarios en el 
      * Controlador de users
@@ -31,7 +33,21 @@ class UsersController extends AppController
      */ 
     
     public function isAuthorized($user)
-    {
+    {   
+              
+        if(isset($user['role']) && $user['role'] === 'investigador'){
+            if(in_array($this->request->action,['home','logout'])){
+                return true;
+            }
+
+            if(in_array($this->request->action,['signup'])){
+                return false;
+            }
+        }
+        if(in_array($this->request->action,['login','signup'])){
+            return true;
+        }
+
         // Default deny
         return parent::isAuthorized($user);
     }
@@ -125,13 +141,18 @@ class UsersController extends AppController
             if ($user)
             {
                 $this->Auth->setUser($user);
+                
                 return $this->redirect($this->Auth->redirectUrl());
+
             }
             else
             {
             $this->Flash->error('Tu usuario o contraseña son incorrectos.',['key'=>'auth']);
             }
+            
+
         }
+        
     }
     
     public function home()
@@ -165,10 +186,12 @@ class UsersController extends AppController
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'login']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
         $this->set(compact('user'));
+
+        
     }
 }

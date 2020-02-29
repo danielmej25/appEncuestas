@@ -88,6 +88,7 @@ class AppController extends Controller
 
     public function beforeFilter(Event $event) {
         $this->Auth->allow(['login','signup']);
+
         //Podemos ahora user current_user en todas nuestras vistas
         $this->set('current_user',$this->Auth->user());
     }
@@ -98,16 +99,6 @@ class AppController extends Controller
     
     public function isAuthorized($user)
     {   
-              
-        if(isset($user['role']) && $user['role'] === 'investigador'){
-            if(in_array($this->request->action,['home','logout'])){
-                return true;
-            }
-
-            if(in_array($this->request->action,['signup'])){
-                return false;
-            }
-        }
         // Admin can access every action
         if (isset($user['role']) && $user['role'] === 'admin') {
             return true;
